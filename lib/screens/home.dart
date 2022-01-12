@@ -20,12 +20,22 @@ class HomeScr extends StatelessWidget {
       bottomNavigationBar: _AppBottomNavigationBar(
         controller: homeController,
       ),
-      body: SafeArea(
-        child: SizedBox(
-            width: double.infinity,
-            child: _HomeBody(
-              controller: homeController,
-            )),
+      body: WillPopScope(
+        onWillPop: () async {
+          FocusScopeNode currentFocus = FocusScope.of(context);
+
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.unfocus();
+          }
+          return false;
+        },
+        child: SafeArea(
+          child: SizedBox(
+              width: double.infinity,
+              child: _HomeBody(
+                controller: homeController,
+              )),
+        ),
       ),
     );
   }
@@ -118,7 +128,7 @@ class _HomeBody extends StatelessWidget {
               Text('Shop'),
             ],
           ),
-          const ExplorePage(),
+          ExplorePage(),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [FlutterLogo(), Text('Cart')],
