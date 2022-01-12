@@ -39,7 +39,10 @@ class CategoryCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 const Expanded(
-                  child: FlutterLogo(),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: FlutterLogo(),
+                  ),
                 ),
                 SizedBox(
                   height: 16.sp,
