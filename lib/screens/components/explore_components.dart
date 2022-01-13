@@ -79,35 +79,36 @@ class SearchBar extends StatelessWidget {
   const SearchBar({
     Key? key,
     this.controller,
+    this.searchValueChangeHandler,
   }) : super(key: key);
   final TextEditingController? controller;
+  final void Function(String)? searchValueChangeHandler;
 
   @override
   Widget build(BuildContext context) {
-    return FocusScope(
-      child: TextField(
-        controller: controller,
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: AppColors.accentGrey,
-          floatingLabelBehavior: FloatingLabelBehavior.never,
-          labelText: 'Search Store',
-          labelStyle: TxtModels.sb14.copyWith(
-            color: AppColors.primaryGrey,
-          ),
-          prefixIcon: Icon(
-            Icons.search,
-            color: AppColors.primaryBlack,
-            size: 24.sp,
-          ),
-          contentPadding: EdgeInsets.all(
-            16.sp,
-          ),
-          border: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(
-              15.sp,
-            ),
+    return TextField(
+      onChanged: searchValueChangeHandler,
+      controller: controller,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: AppColors.accentGrey,
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+        labelText: 'Search Store',
+        labelStyle: TxtModels.sb14.copyWith(
+          color: AppColors.primaryGrey,
+        ),
+        prefixIcon: Icon(
+          Icons.search,
+          color: AppColors.primaryBlack,
+          size: 24.sp,
+        ),
+        contentPadding: EdgeInsets.all(
+          16.sp,
+        ),
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(
+            15.sp,
           ),
         ),
       ),

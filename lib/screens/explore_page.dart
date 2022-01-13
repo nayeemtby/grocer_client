@@ -100,8 +100,11 @@ class _ExplorePageState extends State<ExplorePage>
                   child: FocusScope(
                     child: SearchBar(
                       controller: widget.exploreController.searchTextController,
+                      searchValueChangeHandler:
+                          widget.exploreController.searchValueChangeHandler,
                     ),
-                    onFocusChange: widget.exploreController.searchFocusChanged,
+                    onFocusChange:
+                        widget.exploreController.searchFocusChangeHandler,
                   ),
                 ),
                 SizeTransition(
@@ -125,15 +128,25 @@ class _ExplorePageState extends State<ExplorePage>
             ),
           ),
           Expanded(
-            child: GridView(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisExtent: 190.sp,
-                crossAxisSpacing: 15.r,
-                mainAxisSpacing: 15.r,
-              ),
-              children: catCards,
-              physics: const BouncingScrollPhysics(),
+            child: Obx(
+              () {
+                return IndexedStack(
+                  index: widget.exploreController.searchActive.value ? 0 : 1,
+                  children: [
+                    _SearchSegment(),
+                    GridView(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisExtent: 190.sp,
+                        crossAxisSpacing: 15.r,
+                        mainAxisSpacing: 15.r,
+                      ),
+                      children: catCards,
+                      physics: const BouncingScrollPhysics(),
+                    )
+                  ],
+                );
+              },
             ),
           ),
         ],
@@ -237,4 +250,18 @@ class _ExplorePageState extends State<ExplorePage>
       ),
     ),
   ];
+}
+
+class _SearchSegment extends StatelessWidget {
+  const _SearchSegment({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(
+      width: double.infinity,
+      child: Center(
+        child: FlutterLogo(),
+      ),
+    );
+  }
 }

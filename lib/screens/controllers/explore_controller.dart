@@ -2,33 +2,41 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class ExploreController extends GetxController {
-  RxBool showSearch = false.obs;
-  RxBool isSearchBarFocused = false.obs;
+  RxBool searchActive = false.obs;
+  bool searchValueEmpty = true;
+  bool searchBarFocused = false;
+
   TextEditingController searchTextController = TextEditingController();
   late AnimationController titleAnimationController;
   late AnimationController iconAnimationController;
+
   void hideSearch() {
     searchTextController.clear();
-    showSearch.value = false;
+    searchActive.value = false;
   }
 
-  void searchFocusChanged(bool focused) {
-    isSearchBarFocused.value = focused;
+  void searchFocusChangeHandler(bool focused) {
+    searchBarFocused = focused;
     if (focused) {
-      iconAnimationController.animateTo(1);
       titleAnimationController.animateTo(0);
-    } else {
-      iconAnimationController.animateTo(0);
+    } else if (!searchActive.value) {
       titleAnimationController.animateTo(1);
     }
-    shouldShowSearch();
+    shouldToggleSearch();
   }
 
-  void shouldShowSearch() {
-    if (isSearchBarFocused.value || searchTextController.text.isNotEmpty) {
-      showSearch.value = true;
+  void searchValueChangeHandler(String value) {
+    searchValueEmpty = value.isEmpty;
+    shouldToggleSearch();
+  }
+
+  void shouldToggleSearch() {
+    if (!searchValueEmpty) {
+      searchActive.value = true;
+      iconAnimationController.animateTo(1);
     } else {
-      showSearch.value = false;
+      searchActive.value = false;
+      iconAnimationController.animateTo(0);
     }
   }
 }
