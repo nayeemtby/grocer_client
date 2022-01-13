@@ -10,12 +10,14 @@ class CategoryCard extends StatelessWidget {
     required this.bgColor,
     this.txt = 'Category',
     this.onTap,
+    this.path,
   }) : super(key: key);
 
   final Color borderColor;
   final Color bgColor;
   final String txt;
   final VoidCallback? onTap;
+  final String? path;
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +40,15 @@ class CategoryCard extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Expanded(
+                Expanded(
                   child: SizedBox(
                     width: double.infinity,
-                    child: FlutterLogo(),
+                    child: path == null
+                        ? const FlutterLogo()
+                        : Image.asset(
+                            path!,
+                            fit: BoxFit.contain,
+                          ),
                   ),
                 ),
                 SizedBox(

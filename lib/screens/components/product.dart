@@ -9,19 +9,22 @@ class ProductCard extends StatelessWidget {
     this.price = '\$1.99',
     this.title = 'Product',
     this.quantity = '1 pcs',
+    this.url,
   }) : super(key: key);
   final String price;
   final String title;
   final String quantity;
+  final String? url;
   @override
   Widget build(BuildContext context) {
     return Material(
       shape: RoundedRectangleBorder(
-          side: BorderSide(
-            width: 1.sp,
-            color: AppColors.secondaryGrey,
-          ),
-          borderRadius: BorderRadius.circular(18.sp)),
+        side: BorderSide(
+          width: 1.sp,
+          color: AppColors.secondaryGrey,
+        ),
+        borderRadius: BorderRadius.circular(18.sp),
+      ),
       child: SizedBox(
         height: 250.sp,
         child: Padding(
@@ -33,7 +36,14 @@ class ProductCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                child: SizedBox(width: double.infinity, child: FlutterLogo()),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: url == null
+                      ? const FlutterLogo()
+                      : Image.network(
+                          url!,
+                        ),
+                ),
               ),
               SizedBox(
                 height: 8.sp,
