@@ -1,8 +1,5 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:grocer_client/screens/category.dart';
@@ -26,10 +23,12 @@ class ExplorePage extends StatefulWidget {
 
 class _ExplorePageState extends State<ExplorePage>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
-  @override
-  bool get wantKeepAlive => true;
   late final AnimationController titleAnimationController;
   late final AnimationController iconAnimationController;
+
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   void initState() {
     super.initState();
@@ -126,42 +125,116 @@ class _ExplorePageState extends State<ExplorePage>
             ),
           ),
           Expanded(
-              child: ListView.separated(
-            itemBuilder: (ctx, index) => Row(
-              children: [
-                const Expanded(
-                  child: CategoryCard(
-                    borderColor: CatColors.green,
-                    bgColor: CatColors.lightGreen,
-                  ),
-                ),
-                SizedBox(
-                  width: 15.r,
-                ),
-                Expanded(
-                  child: CategoryCard(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                          builder: (ctx) => CategoryScr(),
-                        ),
-                      );
-                    },
-                    borderColor: CatColors.green,
-                    bgColor: CatColors.lightGreen,
-                    txt: 'Fresh Fruits & Vegetables',
-                  ),
-                ),
-              ],
+            child: GridView(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisExtent: 190.sp,
+                crossAxisSpacing: 15.r,
+                mainAxisSpacing: 15.r,
+              ),
+              children: catCards,
+              physics: const BouncingScrollPhysics(),
             ),
-            separatorBuilder: (ctx, index) => SizedBox(
-              height: 15.r,
-            ),
-            itemCount: 6,
-          )),
+          ),
         ],
       ),
     );
   }
+
+  late List<Widget> catCards = [
+    CategoryCard(
+      borderColor: CatColors.green,
+      bgColor: CatColors.lightGreen,
+      path: 'images/veg.png',
+      txt: 'Fresh Fruits & Vegetables',
+      onTap: () => Navigator.push(
+        context,
+        CupertinoPageRoute(
+          builder: (ctx) => const CategoryScr(),
+        ),
+      ),
+    ),
+    CategoryCard(
+      borderColor: CatColors.orange,
+      bgColor: CatColors.lightOrange,
+      path: 'images/oil.png',
+      txt: 'Cooking Oil & Ghee',
+      onTap: () => Navigator.push(
+        context,
+        CupertinoPageRoute(
+          builder: (ctx) => const CategoryScr(),
+        ),
+      ),
+    ),
+    CategoryCard(
+      borderColor: CatColors.red,
+      bgColor: CatColors.lightRed,
+      path: 'images/meat.png',
+      txt: 'Meat & Fish',
+      onTap: () => Navigator.push(
+        context,
+        CupertinoPageRoute(
+          builder: (ctx) => const CategoryScr(),
+        ),
+      ),
+    ),
+    CategoryCard(
+      borderColor: CatColors.purple,
+      bgColor: CatColors.lightPurple,
+      path: 'images/snack.png',
+      txt: 'Bakery & Snacks',
+      onTap: () => Navigator.push(
+        context,
+        CupertinoPageRoute(
+          builder: (ctx) => const CategoryScr(),
+        ),
+      ),
+    ),
+    CategoryCard(
+      borderColor: CatColors.yellow,
+      bgColor: CatColors.lightYellow,
+      path: 'images/dairy.png',
+      txt: 'Dairy & Eggs',
+      onTap: () => Navigator.push(
+        context,
+        CupertinoPageRoute(
+          builder: (ctx) => const CategoryScr(),
+        ),
+      ),
+    ),
+    CategoryCard(
+      borderColor: CatColors.blue,
+      bgColor: CatColors.lightBlue,
+      path: 'images/bev.png',
+      txt: 'Beverages',
+      onTap: () => Navigator.push(
+        context,
+        CupertinoPageRoute(
+          builder: (ctx) => const CategoryScr(),
+        ),
+      ),
+    ),
+    CategoryCard(
+      borderColor: CatColors.red,
+      bgColor: CatColors.lightGreen,
+      path: 'images/veg.png',
+      onTap: () => Navigator.push(
+        context,
+        CupertinoPageRoute(
+          builder: (ctx) => const CategoryScr(),
+        ),
+      ),
+    ),
+    CategoryCard(
+      borderColor: CatColors.orange,
+      bgColor: CatColors.lightGreen,
+      path: 'images/veg.png',
+      onTap: () => Navigator.push(
+        context,
+        CupertinoPageRoute(
+          builder: (ctx) => const CategoryScr(),
+        ),
+      ),
+    ),
+  ];
 }
