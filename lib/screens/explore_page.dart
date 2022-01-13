@@ -102,6 +102,8 @@ class _ExplorePageState extends State<ExplorePage>
                   child: FocusScope(
                     child: SearchBar(
                       controller: widget.exploreController.searchTextController,
+                      searchActive: widget.exploreController.searchActive,
+                      closeSearch: widget.exploreController.closeSearch,
                       searchValueChangeHandler:
                           widget.exploreController.searchValueChangeHandler,
                     ),

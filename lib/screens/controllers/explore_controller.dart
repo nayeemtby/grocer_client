@@ -12,9 +12,9 @@ class ExploreController extends GetxController {
   late AnimationController titleAnimationController;
   late AnimationController iconAnimationController;
 
-  void hideSearch() {
+  void closeSearch() {
     searchTextController.clear();
-    searchActive.value = false;
+    searchValueChangeHandler('');
   }
 
   void searchFocusChangeHandler(bool focused) {

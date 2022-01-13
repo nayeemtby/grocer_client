@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:grocer_client/theme/colors.dart';
 import 'package:grocer_client/theme/txttheme.dart';
 
@@ -80,9 +81,13 @@ class SearchBar extends StatelessWidget {
     Key? key,
     this.controller,
     this.searchValueChangeHandler,
+    required this.searchActive,
+    required this.closeSearch,
   }) : super(key: key);
   final TextEditingController? controller;
   final void Function(String)? searchValueChangeHandler;
+  final RxBool searchActive;
+  final VoidCallback closeSearch;
 
   @override
   Widget build(BuildContext context) {
@@ -102,6 +107,20 @@ class SearchBar extends StatelessWidget {
           color: AppColors.primaryBlack,
           size: 24.sp,
         ),
+        suffixIcon: Obx(() {
+          return searchActive.value
+              ? GestureDetector(
+                  onTap: closeSearch,
+                  child: Icon(
+                    Icons.close,
+                    size: 24.sp,
+                    color: AppColors.primaryGrey,
+                  ),
+                )
+              : SizedBox(
+                  width: 24.sp,
+                );
+        }),
         contentPadding: EdgeInsets.all(
           16.sp,
         ),
