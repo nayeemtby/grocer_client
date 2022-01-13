@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:grocer_client/api/data.dart';
 import 'package:grocer_client/screens/category.dart';
 import 'package:grocer_client/screens/components/explore_components.dart';
 import 'package:grocer_client/screens/controllers/explore_controller.dart';
 import 'package:grocer_client/theme/colors.dart';
 import 'package:grocer_client/theme/txttheme.dart';
+import 'components/product.dart';
 
 class ExplorePage extends StatefulWidget {
   ExplorePage({Key? key}) : super(key: key);
@@ -133,7 +135,9 @@ class _ExplorePageState extends State<ExplorePage>
                 return IndexedStack(
                   index: widget.exploreController.searchActive.value ? 0 : 1,
                   children: [
-                    _SearchSegment(),
+                    _SearchSegment(
+                      controller: widget.exploreController,
+                    ),
                     GridView(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
@@ -253,14 +257,31 @@ class _ExplorePageState extends State<ExplorePage>
 }
 
 class _SearchSegment extends StatelessWidget {
-  const _SearchSegment({Key? key}) : super(key: key);
-
+  const _SearchSegment({
+    Key? key,
+    required this.controller,
+  }) : super(key: key);
+  final ExploreController controller;
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
-      width: double.infinity,
-      child: Center(
-        child: FlutterLogo(),
+    return Obx(
+      () => GridView.builder(
+        physics: const BouncingScrollPhysics(),
+        itemCount: controller.searchList.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisExtent: 251.sp,
+          crossAxisSpacing: 14.sp,
+          mainAxisSpacing: 16.sp,
+        ),
+        itemBuilder: (ctx, index) {
+          return ProductCard(
+            price: '\$' + controller.searchList[index]['price'],
+            quantity: controller.searchList[index]['quantity'],
+            title: controller.searchList[index]['name'],
+            url: baseUrl + controller.searchList[index]['img'],
+          );
+        },
       ),
     );
   }

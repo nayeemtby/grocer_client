@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:grocer_client/api/data.dart';
 
 class ExploreController extends GetxController {
   RxBool searchActive = false.obs;
   bool searchValueEmpty = true;
   bool searchBarFocused = false;
+  RxList searchList = [].obs;
 
   TextEditingController searchTextController = TextEditingController();
   late AnimationController titleAnimationController;
@@ -28,6 +30,9 @@ class ExploreController extends GetxController {
   void searchValueChangeHandler(String value) {
     searchValueEmpty = value.isEmpty;
     shouldToggleSearch();
+    if (value.isNotEmpty) {
+      search(value).then(manageSearch);
+    }
   }
 
   void shouldToggleSearch() {
@@ -37,6 +42,12 @@ class ExploreController extends GetxController {
     } else {
       searchActive.value = false;
       iconAnimationController.animateTo(0);
+    }
+  }
+
+  void manageSearch(Map<String, dynamic>? result) {
+    if (result != null) {
+      searchList.value = result.values.toList();
     }
   }
 }
