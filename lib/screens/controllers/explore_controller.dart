@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:grocer_client/api/data.dart';
+import 'package:grocer_client/api/api.dart';
 
 class ExploreController extends GetxController {
   RxBool searchActive = false.obs;

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:grocer_client/api/data.dart';
+import 'package:grocer_client/api/api.dart';
 import 'package:grocer_client/screens/category.dart';
 import 'package:grocer_client/screens/components/explore_components.dart';
 import 'package:grocer_client/screens/controllers/explore_controller.dart';
