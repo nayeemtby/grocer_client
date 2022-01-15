@@ -164,7 +164,7 @@ class _ExplorePageState extends State<ExplorePage>
     CategoryCard(
       borderColor: CatColors.green,
       bgColor: CatColors.lightGreen,
-      path: 'images/veg.png',
+      path: 'images/cat/veg.png',
       txt: 'Fresh Fruits & Vegetables',
       onTap: () => Navigator.push(
         context,
@@ -176,7 +176,7 @@ class _ExplorePageState extends State<ExplorePage>
     CategoryCard(
       borderColor: CatColors.orange,
       bgColor: CatColors.lightOrange,
-      path: 'images/oil.png',
+      path: 'images/cat/oil.png',
       txt: 'Cooking Oil & Ghee',
       onTap: () => Navigator.push(
         context,
@@ -188,7 +188,7 @@ class _ExplorePageState extends State<ExplorePage>
     CategoryCard(
       borderColor: CatColors.red,
       bgColor: CatColors.lightRed,
-      path: 'images/meat.png',
+      path: 'images/cat/meat.png',
       txt: 'Meat & Fish',
       onTap: () => Navigator.push(
         context,
@@ -200,7 +200,7 @@ class _ExplorePageState extends State<ExplorePage>
     CategoryCard(
       borderColor: CatColors.purple,
       bgColor: CatColors.lightPurple,
-      path: 'images/snack.png',
+      path: 'images/cat/snack.png',
       txt: 'Bakery & Snacks',
       onTap: () => Navigator.push(
         context,
@@ -212,7 +212,7 @@ class _ExplorePageState extends State<ExplorePage>
     CategoryCard(
       borderColor: CatColors.yellow,
       bgColor: CatColors.lightYellow,
-      path: 'images/dairy.png',
+      path: 'images/cat/dairy.png',
       txt: 'Dairy & Eggs',
       onTap: () => Navigator.push(
         context,
@@ -224,7 +224,7 @@ class _ExplorePageState extends State<ExplorePage>
     CategoryCard(
       borderColor: CatColors.blue,
       bgColor: CatColors.lightBlue,
-      path: 'images/bev.png',
+      path: 'images/cat/bev.png',
       txt: 'Beverages',
       onTap: () => Navigator.push(
         context,
@@ -236,7 +236,7 @@ class _ExplorePageState extends State<ExplorePage>
     CategoryCard(
       borderColor: CatColors.red,
       bgColor: CatColors.lightGreen,
-      path: 'images/veg.png',
+      path: 'images/cat/veg.png',
       onTap: () => Navigator.push(
         context,
         CupertinoPageRoute(
@@ -247,7 +247,7 @@ class _ExplorePageState extends State<ExplorePage>
     CategoryCard(
       borderColor: CatColors.orange,
       bgColor: CatColors.lightGreen,
-      path: 'images/veg.png',
+      path: 'images/cat/veg.png',
       onTap: () => Navigator.push(
         context,
         CupertinoPageRoute(
