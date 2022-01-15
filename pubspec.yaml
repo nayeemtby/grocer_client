@@ -37,6 +37,8 @@ dependencies:
   flutter_screenutil: ^5.0.2
   get: any
   http: any
+  cached_network_image: any
+  flutter_svg: any
 
 dev_dependencies:
   flutter_test:
