@@ -147,6 +147,7 @@ class _ExplorePageState extends State<ExplorePage>
                         crossAxisSpacing: 15.r,
                         mainAxisSpacing: 15.r,
                       ),
+                      controller: ScrollController(),
                       children: catCards,
                       physics: const BouncingScrollPhysics(),
                     )
