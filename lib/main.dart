@@ -16,6 +16,9 @@ class GrocerApp extends StatelessWidget {
       designSize: const Size(414, 896),
       builder: () => GetMaterialApp(
         debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: 'BeVietnamPro',
+        ),
         home: HomeScr(),
       ),
     );
