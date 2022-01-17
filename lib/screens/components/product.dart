@@ -1,14 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grocer_client/screens/details.dart';
 import 'package:grocer_client/theme/colors.dart';
 import 'package:grocer_client/theme/txttheme.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
     Key? key,
-    this.price = '\$1.99',
+    this.price = '1.99',
     this.title = 'Product',
-    this.quantity = '1 pcs',
+    this.quantity = '-- unit',
     this.url,
   }) : super(key: key);
   final String price;
@@ -25,58 +27,71 @@ class ProductCard extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(18.sp),
       ),
-      child: SizedBox(
-        height: 250.sp,
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 14.sp,
-            vertical: 16.sp,
+      child: InkWell(
+        onTap: () => Navigator.push(
+          context,
+          CupertinoPageRoute(
+            builder: (ctx) => DetailsScr(
+              imgurl: url,
+              name: title,
+              price: price,
+              quantity: quantity,
+            ),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: SizedBox(
-                  width: double.infinity,
-                  child: url == null
-                      ? const FlutterLogo()
-                      : Image.network(
-                          url!,
-                        ),
-                ),
-              ),
-              SizedBox(
-                height: 8.sp,
-              ),
-              Text(
-                title,
-                style: TxtThemes.title,
-              ),
-              SizedBox(
-                height: 6.sp,
-              ),
-              Text(
-                quantity,
-                style: TxtModels.med14.copyWith(
-                  color: AppColors.primaryGrey,
-                ),
-              ),
-              SizedBox(
-                height: 20.sp,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    price,
-                    style: TxtThemes.price,
+        ),
+        child: SizedBox(
+          height: 250.sp,
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 14.sp,
+              vertical: 16.sp,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: url == null
+                        ? const FlutterLogo()
+                        : Image.network(
+                            url!,
+                          ),
                   ),
-                  AddBtnIcon(
-                    ontap: () {},
+                ),
+                SizedBox(
+                  height: 8.sp,
+                ),
+                Text(
+                  title,
+                  style: TxtThemes.title,
+                ),
+                SizedBox(
+                  height: 6.sp,
+                ),
+                Text(
+                  quantity,
+                  style: TxtModels.med14.copyWith(
+                    color: AppColors.primaryGrey,
                   ),
-                ],
-              )
-            ],
+                ),
+                SizedBox(
+                  height: 20.sp,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '\$' + price,
+                      style: TxtThemes.price,
+                    ),
+                    AddBtnIcon(
+                      ontap: () {},
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
