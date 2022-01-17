@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:grocer_client/screens/account_page.dart';
+import 'package:grocer_client/screens/cart_page.dart';
 import 'package:grocer_client/screens/controllers/home_controller.dart';
 import 'package:grocer_client/screens/explore_page.dart';
+import 'package:grocer_client/screens/favourite_page.dart';
+import 'package:grocer_client/screens/shop_page.dart';
 import 'package:grocer_client/theme/colors.dart';
 import 'package:grocer_client/theme/txttheme.dart';
 
@@ -121,26 +125,11 @@ class _HomeBody extends StatelessWidget {
         controller: controller.pageController,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              FlutterLogo(),
-              Text('Shop'),
-            ],
-          ),
+          ShopPage(),
           ExplorePage(),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [FlutterLogo(), Text('Cart')],
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [FlutterLogo(), Text('Favourite')],
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [FlutterLogo(), Text('Profile')],
-          ),
+          CartPage(),
+          FavouritePage(),
+          AccountPage(),
         ],
       ),
     );
