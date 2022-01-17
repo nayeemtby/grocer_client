@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -54,8 +55,8 @@ class ProductCard extends StatelessWidget {
                     width: double.infinity,
                     child: url == null
                         ? const FlutterLogo()
-                        : Image.network(
-                            url!,
+                        : CachedNetworkImage(
+                            imageUrl: url!,
                           ),
                   ),
                 ),
