@@ -61,4 +61,9 @@ class TxtModels {
     fontWeight: FontWeight.w500,
     fontSize: 14.sp,
   );
+
+  static final TextStyle sb16 = TextStyle(
+    fontWeight: FontWeight.w600,
+    fontSize: 16.sp,
+  );
 }
