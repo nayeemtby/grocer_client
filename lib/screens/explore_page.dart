@@ -68,7 +68,7 @@ class _ExplorePageState extends State<ExplorePage>
     super.build(context);
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: 24.r,
+        horizontal: 25.w,
       ),
       child: Column(
         children: [
@@ -82,7 +82,7 @@ class _ExplorePageState extends State<ExplorePage>
                 ),
                 child: Padding(
                   padding: EdgeInsets.symmetric(
-                    vertical: 16.r,
+                    vertical: 16.h,
                   ),
                   child: Text(
                     'Explore Products',
