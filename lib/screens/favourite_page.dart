@@ -21,14 +21,17 @@ class FavouritePage extends StatelessWidget {
                 vertical: 16.h,
               ),
               child: Text(
-                'Explore Products',
+                'Favourites',
                 style: TxtThemes.headline,
               ),
             ),
           ],
         ),
         SizedBox(
-          height: 16.h,
+          height: 14.h,
+        ),
+        Divider(
+          height: 2.h,
         ),
         Expanded(
           child: ListView.builder(
