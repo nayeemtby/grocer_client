@@ -92,7 +92,7 @@ class CategoryScr extends StatelessWidget {
                             ),
                             itemBuilder: (ctx, index) {
                               return ProductCard(
-                                price: '\$' + prods[index]['price'],
+                                price: prods[index]['price'],
                                 quantity: prods[index]['quantity'],
                                 title: prods[index]['name'],
                                 url: baseUrl + prods[index]['img'],

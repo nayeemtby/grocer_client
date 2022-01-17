@@ -279,7 +279,7 @@ class _SearchSegment extends StatelessWidget {
         ),
         itemBuilder: (ctx, index) {
           return ProductCard(
-            price: '\$' + controller.searchList[index]['price'],
+            price: controller.searchList[index]['price'],
             quantity: controller.searchList[index]['quantity'],
             title: controller.searchList[index]['name'],
             url: baseUrl + controller.searchList[index]['img'],
