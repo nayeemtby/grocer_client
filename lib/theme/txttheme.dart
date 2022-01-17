@@ -22,7 +22,7 @@ class TxtThemes {
   );
 
   static final TextStyle subtitle = TextStyle(
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w500,
     fontSize: 16.sp,
     color: AppColors.primaryGrey,
   );
