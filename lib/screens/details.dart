@@ -117,7 +117,7 @@ class DetailsScr extends StatelessWidget {
                             height: 10.h,
                           ),
                           Divider(
-                            height: 20.h,
+                            height: 40.h,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -135,7 +135,7 @@ class DetailsScr extends StatelessWidget {
                             ],
                           ),
                           Divider(
-                            height: 20.h,
+                            height: 40.h,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -173,7 +173,7 @@ class DetailsScr extends StatelessWidget {
                             ],
                           ),
                           Divider(
-                            height: 20.h,
+                            height: 40.h,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -236,7 +236,7 @@ class DetailsScr extends StatelessWidget {
                             ],
                           ),
                           Divider(
-                            height: 18.h,
+                            height: 36.h,
                           ),
                         ],
                       ),
