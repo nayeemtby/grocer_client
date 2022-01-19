@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:grocer_client/screens/components/buttons.dart';
 import 'package:grocer_client/screens/home.dart';
+import 'package:grocer_client/screens/login.dart';
 import 'package:grocer_client/theme/colors.dart';
 
 class OnboardScr extends StatelessWidget {
@@ -59,10 +60,10 @@ class OnboardScr extends StatelessWidget {
             ),
             BtnPrimary(
               txt: 'Get Started',
-              onTap: () => Navigator.pushReplacement(
+              onTap: () => Navigator.push(
                 context,
                 CupertinoPageRoute(
-                  builder: (ctx) => HomeScr(),
+                  builder: (ctx) => LoginScr(),
                 ),
               ),
             ),

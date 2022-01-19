@@ -1,13 +1,30 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:grocer_client/screens/components/buttons.dart';
 import 'package:grocer_client/screens/components/input.dart';
+import 'package:grocer_client/screens/controllers/auth_controller.dart';
+import 'package:grocer_client/screens/login.dart';
 import 'package:grocer_client/theme/colors.dart';
 import 'package:grocer_client/theme/txttheme.dart';
 
-class SignupScr extends StatelessWidget {
-  const SignupScr({Key? key}) : super(key: key);
+class SignupScr extends StatefulWidget {
+  SignupScr({Key? key}) : super(key: key);
+
+  @override
+  State<SignupScr> createState() => _SignupScrState();
+}
+
+class _SignupScrState extends State<SignupScr> {
+  final AuthController authController = Get.put(AuthController());
+
+  @override
+  void initState() {
+    super.initState();
+    authController.passwordController.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,10 +59,10 @@ class SignupScr extends StatelessWidget {
           },
           child: Scaffold(
             backgroundColor: Colors.transparent,
-            body: SafeArea(
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(24.w, 40.h, 24.w, 0),
-                child: SingleChildScrollView(
+            body: SingleChildScrollView(
+              child: SafeArea(
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(24.w, 40.h, 24.w, 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -73,31 +90,49 @@ class SignupScr extends StatelessWidget {
                         height: 40.r,
                       ),
                       TxtInput(
+                        controller: authController.nameController,
                         label: 'Full Name',
                       ),
                       SizedBox(
                         height: 30.h,
                       ),
                       TxtInput(
+                        controller: authController.emailController,
                         label: 'Email',
-                        suffix: Icon(
-                          Icons.check,
-                          size: 18.sp,
-                        ),
+                        suffix: Obx(() {
+                          return Icon(
+                            Icons.check_rounded,
+                            size: 24.sp,
+                            color: GetUtils.isEmail(
+                              authController.email.value,
+                            )
+                                ? AppColors.primaryGreen
+                                : AppColors.primaryGrey,
+                          );
+                        }),
                       ),
                       SizedBox(
                         height: 30.h,
                       ),
-                      TxtInput(
-                        label: 'Password',
-                        suffix: GestureDetector(
-                          child: Icon(
-                            Icons.visibility,
-                            size: 18.sp,
-                            color: AppColors.primaryGrey,
+                      Obx(() {
+                        return TxtInput(
+                          controller: authController.passwordController,
+                          label: 'Password',
+                          showText: authController.passwordVisible.value,
+                          suffix: GestureDetector(
+                            onTap: authController.togglePasswordVisibility,
+                            child: Obx(() {
+                              return Icon(
+                                authController.passwordVisible.value
+                                    ? Icons.visibility_off_rounded
+                                    : Icons.visibility_rounded,
+                                size: 24.sp,
+                                color: AppColors.primaryGrey,
+                              );
+                            }),
                           ),
-                        ),
-                      ),
+                        );
+                      }),
                       SizedBox(
                         height: 20.h,
                       ),
@@ -134,9 +169,15 @@ class SignupScr extends StatelessWidget {
                       SizedBox(
                         height: 30.h,
                       ),
-                      BtnPrimary(
-                        txt: 'Sign Up',
-                      ),
+                      Obx(() {
+                        return BtnPrimary(
+                          txt: 'Sign Up',
+                          onTap: (authController.isValidCredentials.value &&
+                                  authController.name.value.isNotEmpty)
+                              ? () {}
+                              : null,
+                        );
+                      }),
                       SizedBox(
                         height: 25.h,
                       ),
@@ -151,6 +192,12 @@ class SignupScr extends StatelessWidget {
                               ),
                             ),
                             GestureDetector(
+                              onTap: () => Navigator.pushReplacement(
+                                context,
+                                CupertinoPageRoute(
+                                  builder: (ctx) => LoginScr(),
+                                ),
+                              ),
                               child: Text(
                                 'Log In',
                                 style: TxtModels.med14.copyWith(

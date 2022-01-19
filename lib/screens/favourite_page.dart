@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grocer_client/api/api.dart';
+import 'package:grocer_client/screens/components/buttons.dart';
 import 'package:grocer_client/screens/details.dart';
 import 'package:grocer_client/theme/colors.dart';
 import 'package:grocer_client/theme/txttheme.dart';
@@ -34,12 +36,45 @@ class FavouritePage extends StatelessWidget {
           height: 2.h,
         ),
         Expanded(
-          child: ListView.builder(
-            physics: const BouncingScrollPhysics(),
-            itemCount: 10,
-            itemBuilder: (ctx, index) {
-              return _FavouriteItem();
-            },
+          child: FutureBuilder(
+              initialData: const <String, dynamic>{
+                'loading': true,
+              },
+              future: getJson('favourites'),
+              builder: (context, snap) {
+                Map<String, dynamic>? data = {
+                  'loading': true,
+                };
+                if (snap.hasData) {
+                  data = snap.data as Map<String, dynamic>;
+                }
+                if (snap.hasError || data['loading'] != null) {
+                  return Center(
+                    child: CupertinoActivityIndicator(
+                      radius: 14.r,
+                    ),
+                  );
+                }
+                List tmp = data.values.toList();
+                return ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: tmp.length,
+                  itemBuilder: (ctx, index) {
+                    return _FavouriteItem(
+                      name: tmp[index]['name'],
+                      price: tmp[index]['price'],
+                      quantity: tmp[index]['quantity'],
+                      imgurl: baseUrl + tmp[index]['img'],
+                    );
+                  },
+                );
+              }),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(25.w, 4.h, 25.w, 14.h),
+          child: BtnPrimary(
+            txt: 'Add all to cart',
+            onTap: () {},
           ),
         )
       ],

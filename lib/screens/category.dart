@@ -10,7 +10,7 @@ class CategoryScr extends StatelessWidget {
   const CategoryScr({
     Key? key,
     this.catName = 'Beverages',
-    this.cat = 'bev',
+    this.cat = 'beverage',
   }) : super(key: key);
   final String catName;
   final String cat;
