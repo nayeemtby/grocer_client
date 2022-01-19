@@ -13,11 +13,15 @@ class ProductCard extends StatelessWidget {
     this.title = 'Product',
     this.quantity = '-- unit',
     this.url,
+    this.discountPrice,
+    this.id,
   }) : super(key: key);
   final String price;
   final String title;
   final String quantity;
   final String? url;
+  final String? discountPrice;
+  final String? id;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -29,6 +33,7 @@ class ProductCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(18.sp),
       ),
       child: InkWell(
+        borderRadius: BorderRadius.circular(18.sp),
         onTap: () => Navigator.push(
           context,
           CupertinoPageRoute(
@@ -82,9 +87,28 @@ class ProductCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      '\$' + price,
-                      style: TxtThemes.price,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        discountPrice != null
+                            ? Padding(
+                                padding: EdgeInsets.only(bottom: 4.sp),
+                                child: Text(
+                                  '\$' + price,
+                                  style: TxtThemes.price.copyWith(
+                                    fontSize: 12.sp,
+                                    decoration: TextDecoration.lineThrough,
+                                    decorationThickness: 2,
+                                  ),
+                                ),
+                              )
+                            : const SizedBox(),
+                        Text(
+                          '\$' + (discountPrice ?? price),
+                          style: TxtThemes.price,
+                        ),
+                      ],
                     ),
                     AddBtnIcon(
                       ontap: () {},
