@@ -10,14 +10,17 @@ class TxtInput extends StatelessWidget {
     required this.label,
     this.suffix,
     this.controller,
+    this.showText = true,
   }) : super(key: key);
   final String label;
   final Widget? suffix;
   final TextEditingController? controller;
+  final bool showText;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      obscureText: !showText,
       controller: controller,
       style: TxtThemes.input,
       decoration: InputDecoration(
