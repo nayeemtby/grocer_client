@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:grocer_client/screens/components/buttons.dart';
 import 'package:grocer_client/screens/components/input.dart';
+import 'package:grocer_client/screens/controllers/cart_controller.dart';
 import 'package:grocer_client/theme/colors.dart';
 import 'package:grocer_client/theme/txttheme.dart';
 
 class CartPage extends StatelessWidget {
-  const CartPage({Key? key}) : super(key: key);
+  CartPage({Key? key}) : super(key: key);
+  CartController cartController = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
@@ -36,55 +39,69 @@ class CartPage extends StatelessWidget {
         Expanded(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 25.w),
-            child: ListView.separated(
-              physics: const BouncingScrollPhysics(),
-              itemBuilder: (ctx, index) {
-                return _CartItem();
-              },
-              separatorBuilder: (_, __) => Divider(
-                height: 2.h,
-              ),
-              itemCount: 10,
-            ),
+            child: Obx(() {
+              if (cartController.cartItems.isEmpty) {
+                return Center(
+                  child: Text(
+                    'Your Cart Is Empty',
+                    style: TxtThemes.title,
+                  ),
+                );
+              }
+              return ListView.separated(
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (ctx, index) {
+                  return _CartItem();
+                },
+                separatorBuilder: (_, __) => Divider(
+                  height: 2.h,
+                ),
+                itemCount: cartController.cartItems.length,
+              );
+            }),
           ),
         ),
         Padding(
           padding: EdgeInsets.fromLTRB(25.w, 4.h, 25.w, 18.h),
-          child: BtnPrimary(
-            onTap: () {},
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(
-                    width: 40.sp,
-                  ),
-                  Text(
-                    'Go to checkout',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18.sp,
-                      color: AppColors.tertiaryWhite,
+          child: Obx(() {
+            return BtnPrimary(
+              onTap: cartController.cartItems.isEmpty ? null : () {},
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 24.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: 40.sp,
                     ),
-                  ),
-                  Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
-                    decoration: BoxDecoration(
-                      color: const Color(0xff489E67),
-                      borderRadius: BorderRadius.circular(4.r),
+                    Text(
+                      'Go to checkout',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18.sp,
+                        color: AppColors.tertiaryWhite,
+                      ),
                     ),
-                    child: Text(
-                      '\$123',
-                      style: TxtThemes.iconLabel
-                          .copyWith(color: AppColors.primaryWhite),
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
+                      decoration: BoxDecoration(
+                        color: const Color(0x44000000),
+                        borderRadius: BorderRadius.circular(4.r),
+                      ),
+                      child: Obx(() {
+                        return Text(
+                          '\$' + cartController.total.toString(),
+                          style: TxtThemes.iconLabel
+                              .copyWith(color: AppColors.primaryWhite),
+                        );
+                      }),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ),
+            );
+          }),
         ),
       ],
     );
@@ -92,8 +109,13 @@ class CartPage extends StatelessWidget {
 }
 
 class _CartItem extends StatelessWidget {
-  const _CartItem({Key? key}) : super(key: key);
-
+  const _CartItem({
+    Key? key,
+    this.id,
+    this.data,
+  }) : super(key: key);
+  final String? id;
+  final CartItemData? data;
   @override
   Widget build(BuildContext context) {
     return Padding(
