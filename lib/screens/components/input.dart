@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:grocer_client/screens/controllers/cart_controller.dart';
 import 'package:grocer_client/theme/colors.dart';
 import 'package:grocer_client/theme/txttheme.dart';
 
@@ -40,28 +42,89 @@ class TxtInput extends StatelessWidget {
   }
 }
 
-class ProductCounter extends StatelessWidget {
-  const ProductCounter({Key? key}) : super(key: key);
+class ProductCounter extends StatefulWidget {
+  const ProductCounter({
+    Key? key,
+    required this.id,
+    this.editable = true,
+    required this.dataMessageController,
+    required this.initialCount,
+    this.onChanged,
+  }) : super(key: key);
+  final String id;
+  final bool editable;
+  final int initialCount;
+  final CounterController dataMessageController;
+  final void Function(String)? onChanged;
+
+  @override
+  State<ProductCounter> createState() => _ProductCounterState();
+}
+
+class _ProductCounterState extends State<ProductCounter> {
+  final CartController cartController = Get.put(CartController());
+
+  final TextEditingController countController = TextEditingController();
+  late int currentCount;
+  @override
+  void initState() {
+    super.initState();
+    countController.text = widget.initialCount.toString();
+    currentCount = widget.initialCount;
+    countController.addListener(() {
+      if (countController.text == '' || int.parse(countController.text) < 1) {
+        countController.text = '1';
+      }
+      if (widget.onChanged != null) {
+        widget.onChanged!(countController.text);
+      }
+      widget.dataMessageController.count = countController.text;
+      setState(() {
+        currentCount = int.parse(countController.text);
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(
-          Icons.remove,
-          size: 28.sp,
+        GestureDetector(
+          onTap: currentCount > 1
+              ? () => countController.text = (currentCount - 1).toString()
+              : null,
+          child: Icon(
+            Icons.remove,
+            size: 28.sp,
+            color: currentCount > 1
+                ? AppColors.primaryGreen
+                : AppColors.primaryGrey,
+          ),
         ),
         SizedBox(
           width: 20.w,
         ),
-        IntrinsicWidth(child: _ProductCountField()),
+        IntrinsicWidth(
+          child: _ProductCountField(
+            controller: countController,
+            editable: widget.editable,
+          ),
+        ),
         SizedBox(
           width: 20.w,
         ),
-        Icon(
-          Icons.add,
-          size: 28.sp,
+        GestureDetector(
+          onTap: currentCount < 9999
+              ? () => countController.text = (currentCount + 1).toString()
+              : null,
+          child: Icon(
+            Icons.add,
+            size: 28.sp,
+            color: currentCount < 9999
+                ? AppColors.primaryGreen
+                : AppColors.primaryGrey,
+          ),
         ),
       ],
     );
@@ -69,12 +132,19 @@ class ProductCounter extends StatelessWidget {
 }
 
 class _ProductCountField extends StatelessWidget {
-  const _ProductCountField({Key? key}) : super(key: key);
-
+  const _ProductCountField({
+    Key? key,
+    required this.controller,
+    required this.editable,
+  }) : super(key: key);
+  final TextEditingController controller;
+  final bool editable;
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
       autocorrect: false,
+      enabled: editable,
       inputFormatters: [
         FilteringTextInputFormatter.digitsOnly,
         FilteringTextInputFormatter.singleLineFormatter
@@ -99,4 +169,8 @@ class _ProductCountField extends StatelessWidget {
       ),
     );
   }
+}
+
+class CounterController {
+  String count = '1';
 }

@@ -180,6 +180,7 @@ class _ShopPageState extends State<ShopPage> with TickerProviderStateMixin {
                                   quantity: tmp[0]['quantity'],
                                   url: baseUrl + tmp[0]['img'],
                                   discountPrice: tmp[0]['discountPrice'],
+                                  id: tmp[0]['id'],
                                 ),
                               ),
                               SizedBox(
@@ -192,6 +193,7 @@ class _ShopPageState extends State<ShopPage> with TickerProviderStateMixin {
                                 quantity: tmp[1]['quantity'],
                                 url: baseUrl + tmp[1]['img'],
                                 discountPrice: tmp[1]['discountPrice'],
+                                id: tmp[1]['id'],
                               )),
                             ],
                           )
@@ -263,6 +265,7 @@ class _ShopPageState extends State<ShopPage> with TickerProviderStateMixin {
                                   price: tmp[0]['price'],
                                   quantity: tmp[0]['quantity'],
                                   url: baseUrl + tmp[0]['img'],
+                                  id: baseUrl + tmp[0]['id'],
                                 ),
                               ),
                               SizedBox(
@@ -274,6 +277,7 @@ class _ShopPageState extends State<ShopPage> with TickerProviderStateMixin {
                                 price: tmp[1]['price'],
                                 quantity: tmp[1]['quantity'],
                                 url: baseUrl + tmp[1]['img'],
+                                id: baseUrl + tmp[1]['id'],
                               )),
                             ],
                           )
@@ -372,6 +376,7 @@ class _ShopPageState extends State<ShopPage> with TickerProviderStateMixin {
                                   price: tmp[0]['price'],
                                   quantity: tmp[0]['quantity'],
                                   url: baseUrl + tmp[0]['img'],
+                                  id: baseUrl + tmp[0]['id'],
                                 ),
                               ),
                               SizedBox(
@@ -383,6 +388,7 @@ class _ShopPageState extends State<ShopPage> with TickerProviderStateMixin {
                                 price: tmp[1]['price'],
                                 quantity: tmp[1]['quantity'],
                                 url: baseUrl + tmp[1]['img'],
+                                id: baseUrl + tmp[1]['id'],
                               )),
                             ],
                           )

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart';
 
-const String host = '192.168.0.106:8080';
+const String host = '192.168.0.108:8080';
 const String baseUrl = 'http://' + host + '/';
 
 Future<Map<String, dynamic>?> getCat(String catname) async {

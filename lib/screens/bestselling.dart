@@ -71,6 +71,7 @@ class BestsellingScr extends StatelessWidget {
                       quantity: tmp[index]['quantity'],
                       title: tmp[index]['name'],
                       url: baseUrl + tmp[index]['img'],
+                      id: baseUrl + tmp[index]['id'],
                     );
                   },
                 ),

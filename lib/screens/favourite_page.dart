@@ -9,7 +9,9 @@ import 'package:grocer_client/theme/colors.dart';
 import 'package:grocer_client/theme/txttheme.dart';
 
 class FavouritePage extends StatelessWidget {
-  const FavouritePage({Key? key}) : super(key: key);
+  const FavouritePage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +67,7 @@ class FavouritePage extends StatelessWidget {
                       price: tmp[index]['price'],
                       quantity: tmp[index]['quantity'],
                       imgurl: baseUrl + tmp[index]['img'],
+                      id: baseUrl + tmp[index]['id'],
                     );
                   },
                 );
@@ -89,11 +92,13 @@ class _FavouriteItem extends StatelessWidget {
     this.quantity = '-- unit',
     this.imgurl,
     this.price = '1.99',
+    required this.id,
   }) : super(key: key);
   final String name;
   final String quantity;
   final String? imgurl;
   final String price;
+  final String id;
 
   @override
   Widget build(BuildContext context) {
@@ -109,6 +114,7 @@ class _FavouriteItem extends StatelessWidget {
                 name: name,
                 price: price,
                 quantity: quantity,
+                id: id,
               ),
             ),
           ),

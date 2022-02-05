@@ -96,6 +96,7 @@ class CategoryScr extends StatelessWidget {
                                 quantity: prods[index]['quantity'],
                                 title: prods[index]['name'],
                                 url: baseUrl + prods[index]['img'],
+                                id: baseUrl + prods[index]['id'],
                               );
                             },
                           );

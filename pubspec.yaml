@@ -39,6 +39,8 @@ dependencies:
   http: any
   cached_network_image: any
   flutter_svg: any
+  path_provider: any
+  firebase_auth_rest: any
 
 dev_dependencies:
   flutter_test:

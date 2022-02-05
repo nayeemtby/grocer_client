@@ -283,6 +283,7 @@ class _SearchSegment extends StatelessWidget {
             quantity: controller.searchList[index]['quantity'],
             title: controller.searchList[index]['name'],
             url: baseUrl + controller.searchList[index]['img'],
+            id: baseUrl + controller.searchList[index]['id'],
           );
         },
       ),

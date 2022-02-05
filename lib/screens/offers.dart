@@ -72,6 +72,7 @@ class OfferScr extends StatelessWidget {
                       title: tmp[index]['name'],
                       url: baseUrl + tmp[index]['img'],
                       discountPrice: tmp[index]['discountPrice'],
+                      id: tmp[index]['id'],
                     );
                   },
                 ),

@@ -2,26 +2,29 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:grocer_client/screens/controllers/cart_controller.dart';
 import 'package:grocer_client/screens/details.dart';
 import 'package:grocer_client/theme/colors.dart';
 import 'package:grocer_client/theme/txttheme.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({
+  ProductCard({
     Key? key,
     this.price = '1.99',
     this.title = 'Product',
     this.quantity = '-- unit',
     this.url,
     this.discountPrice,
-    this.id,
+    required this.id,
   }) : super(key: key);
+  final CartController cartController = Get.put(CartController());
   final String price;
   final String title;
   final String quantity;
   final String? url;
   final String? discountPrice;
-  final String? id;
+  final String id;
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -42,6 +45,7 @@ class ProductCard extends StatelessWidget {
               name: title,
               price: price,
               quantity: quantity,
+              id: id,
             ),
           ),
         ),
@@ -111,7 +115,16 @@ class ProductCard extends StatelessWidget {
                       ],
                     ),
                     AddBtnIcon(
-                      ontap: () {},
+                      ontap: () => cartController.addUnit(
+                        id,
+                        CartItemData(
+                          img: url,
+                          name: title,
+                          price: discountPrice ?? price,
+                          quantity: quantity,
+                          units: 1,
+                        ),
+                      ),
                     ),
                   ],
                 )
